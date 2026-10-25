@@ -74,7 +74,7 @@ Write links between pages from the site root, e.g. `[What is PH](/what-is-ph/)`.
 
 ## Running it locally
 
-Requires Node.js 22 or later.
+Requires Node.js 22.23.4 or later (24 recommended).
 
 ```bash
 npm install

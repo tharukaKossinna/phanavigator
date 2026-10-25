@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Patient information website for people living with pulmonary hypertension in Australia and New Zealand.",
   "engines": {
-    "node": ">=22"
+    "node": ">=22.23.4"
   },
   "scripts": {
     "dev": "astro dev",
