@@ -22,28 +22,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10.26.1
       - uses: actions/setup-node@v4
         with:
-          node-version: 24
-          cache: pnpm
+          node-version: 22
+          cache: npm
       - id: pages
         uses: actions/configure-pages@v5
-      - run: pnpm install --frozen-lockfile
+      - run: npm ci
       - name: Build website
-        run: pnpm run build:worker
+        run: npm run build
         env:
           # Serve from the Pages subfolder (e.g. /phanavigator/), or / with a custom domain
           BASE_PATH: ${{ steps.pages.outputs.base_path }}/
-          PORT: 3000
-      - name: Enable direct links to inner pages
-        # GitHub Pages has no SPA fallback, so serve the app for unknown paths
-        run: cp artifacts/ph-navigator/dist/public/index.html artifacts/ph-navigator/dist/public/404.html
+          SITE_URL: ${{ steps.pages.outputs.origin }}
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: artifacts/ph-navigator/dist/public
+          path: dist
 
   deploy:
     needs: build

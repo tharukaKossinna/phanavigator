@@ -1,0 +1,146 @@
+[
+  {
+    "country": "AU",
+    "state": "NSW",
+    "name": "St Vincent's Hospital",
+    "city": "Darlinghurst",
+    "type": "Adult",
+    "website": "https://www.svhs.org.au"
+  },
+  {
+    "country": "AU",
+    "state": "NSW",
+    "name": "Royal Prince Alfred Hospital",
+    "city": "Camperdown",
+    "type": "Adult",
+    "website": "https://www.slhd.nsw.gov.au/rpa"
+  },
+  {
+    "country": "AU",
+    "state": "NSW",
+    "name": "Sydney Children's Hospital",
+    "city": "Randwick",
+    "type": "Paediatric",
+    "website": "https://www.schn.health.nsw.gov.au"
+  },
+  {
+    "country": "AU",
+    "state": "NSW",
+    "name": "The Children's Hospital at Westmead",
+    "city": "Westmead",
+    "type": "Paediatric",
+    "website": "https://www.schn.health.nsw.gov.au"
+  },
+  {
+    "country": "AU",
+    "state": "VIC",
+    "name": "The Alfred Hospital",
+    "city": "Melbourne",
+    "type": "Adult",
+    "website": "https://www.alfredhealth.org.au"
+  },
+  {
+    "country": "AU",
+    "state": "VIC",
+    "name": "Austin Hospital",
+    "city": "Heidelberg",
+    "type": "Adult",
+    "website": "https://www.austin.org.au"
+  },
+  {
+    "country": "AU",
+    "state": "VIC",
+    "name": "Royal Children's Hospital",
+    "city": "Parkville",
+    "type": "Paediatric",
+    "website": "https://www.rch.org.au"
+  },
+  {
+    "country": "AU",
+    "state": "QLD",
+    "name": "The Prince Charles Hospital",
+    "city": "Chermside",
+    "type": "Adult",
+    "website": "https://metronorth.health.qld.gov.au/prince-charles-hospital"
+  },
+  {
+    "country": "AU",
+    "state": "QLD",
+    "name": "Queensland Children's Hospital",
+    "city": "South Brisbane",
+    "type": "Paediatric",
+    "website": "https://www.childrens.health.qld.gov.au"
+  },
+  {
+    "country": "AU",
+    "state": "SA",
+    "name": "Royal Adelaide Hospital",
+    "city": "Adelaide",
+    "type": "Adult",
+    "website": "https://www.rah.sa.gov.au"
+  },
+  {
+    "country": "AU",
+    "state": "SA",
+    "name": "Women's and Children's Hospital",
+    "city": "North Adelaide",
+    "type": "Paediatric",
+    "website": "https://www.wch.sa.gov.au"
+  },
+  {
+    "country": "AU",
+    "state": "WA",
+    "name": "Fiona Stanley Hospital",
+    "city": "Murdoch",
+    "type": "Adult",
+    "website": "https://fsh.health.wa.gov.au"
+  },
+  {
+    "country": "AU",
+    "state": "WA",
+    "name": "Perth Children's Hospital",
+    "city": "Nedlands",
+    "type": "Paediatric",
+    "website": "https://pch.health.wa.gov.au"
+  },
+  {
+    "country": "AU",
+    "state": "ACT",
+    "name": "Canberra Hospital",
+    "city": "Garran",
+    "type": "Adult",
+    "website": "https://www.health.act.gov.au/hospitals-and-health-centres/canberra-hospital"
+  },
+  {
+    "country": "AU",
+    "state": "TAS",
+    "name": "Royal Hobart Hospital",
+    "city": "Hobart",
+    "type": "Adult",
+    "website": "https://www.dhhs.tas.gov.au/hospitals/royal_hobart_hospital"
+  },
+  {
+    "country": "NZ",
+    "state": "Auckland",
+    "name": "Auckland City Hospital",
+    "city": "Auckland",
+    "type": "Adult & Paediatric",
+    "website": "https://www.healthpoint.co.nz/hospitals/auckland-city-hospital"
+  },
+  {
+    "country": "NZ",
+    "state": "Wellington",
+    "name": "Wellington Hospital",
+    "city": "Wellington",
+    "type": "Adult & Paediatric",
+    "website": "https://www.healthpoint.co.nz/hospitals/wellington-regional-hospital"
+  },
+  {
+    "country": "NZ",
+    "state": "Canterbury",
+    "name": "Christchurch Hospital",
+    "city": "Christchurch",
+    "type": "Adult & Paediatric",
+    "website": "https://www.healthpoint.co.nz/hospitals/christchurch-hospital"
+  }
+]
