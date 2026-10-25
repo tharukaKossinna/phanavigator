@@ -1,6 +1,7 @@
 ---
 // The centre list lives in src/data/centres.json so it can be edited without touching this page.
 import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
 import centres from '../data/centres.json';
 
 interface Centre {
@@ -38,49 +39,50 @@ const groups = [
   title="Find a specialist"
   description="Hospitals in Australia and New Zealand with pulmonary hypertension services."
 >
-  <h1>Find a specialist</h1>
-  <p class="lede">Hospitals in Australia and New Zealand with pulmonary hypertension (PH) services.</p>
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Step 5 of 5</p>
+      <h1>Find a specialist</h1>
+      <p class="lede">
+        Hospitals in Australia and New Zealand with pulmonary hypertension (PH) services. You usually need a referral
+        from your GP or another doctor, and your GP can help you choose a centre.
+      </p>
+    </div>
+  </header>
 
-  <div class="review-box" role="note">
-    <p>
-      <strong>This list is still being checked.</strong> Confirm with your GP or specialist which centre is right for
-      you before you book or travel. Direct contact details for each PH clinic will be added once confirmed.
-    </p>
+  <div class="container page-body">
+    <div>
+      <div class="review-box" role="note" style="max-width: var(--prose)">
+        <Icon name="info" size={20} />
+        <p>
+          <strong>This list is still being checked.</strong> Confirm with your GP or specialist which centre is right
+          for you before you book or travel. Direct contact details for each PH clinic will be added once confirmed.
+        </p>
+      </div>
+
+      <div class="centre-groups">
+      {groups.map((group) => (
+        <section class="centre-group">
+          <h2>{group.heading}</h2>
+          <ul class="centre-list">
+            {group.items.map((c) => (
+              <li class="centre">
+                <h3>{c.name}</h3>
+                <p><Icon name="map-pin" size={16} /> {c.city}</p>
+                <span class="tag">{c.type}</span>
+                {c.website && (
+                  <a class="text-link" href={c.website} rel="noopener">
+                    Hospital website<span class="visually-hidden"> for {c.name}</span> <Icon name="arrow-right" size={16} />
+                  </a>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+      </div>
+
+      <p class="page-meta">Last updated 25 October 2026</p>
+    </div>
   </div>
-
-  <p class="prose">
-    You usually need a referral from your GP or another doctor to see a PH specialist. Your GP can help you choose a
-    centre and arrange the referral.
-  </p>
-
-  {groups.map((group) => (
-    <section class="centre-group">
-      <h2>{group.heading}</h2>
-      <ul class="centre-list">
-        {group.items.map((c) => (
-          <li class="centre">
-            <h3>{c.name}</h3>
-            <p>{c.city}</p>
-            <p><span class="tag">{c.type}</span></p>
-            {c.website && (
-              <p><a href={c.website} rel="noopener">Hospital website<span class="visually-hidden"> for {c.name}</span></a></p>
-            )}
-          </li>
-        ))}
-      </ul>
-    </section>
-  ))}
-
-  <p class="page-meta">Last updated 25 October 2026</p>
 </Base>
-
-<style>
-  .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-  }
-</style>

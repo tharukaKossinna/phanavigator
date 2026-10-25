@@ -1,5 +1,23 @@
 # Release notes
 
+## v2.1 — Original look restored, desktop layout (25 October 2026)
+
+v2.0 rebuilt the site with a plainer design than the original. This release brings the original look back on the new build and makes better use of wide screens.
+
+### Decisions
+- **Keep the original design.** The strip-back was about content and features, not the look.
+- **Scale for desktop, keep text readable.** Pages use the full width on large screens, but body text stays at a comfortable reading width; the extra space holds a sidebar instead.
+
+### Changed
+- Brand blue headings, coral "— together." and the "I'm newly diagnosed" / "Find a specialist" buttons back on the home page, with the soft background shapes and a large logo on desktop.
+- "New to PH Navigator?" panel and coloured-border cards back on the home page.
+- Bold coral help banner back, in a slightly deeper coral so white text is readable. Still can't be dismissed.
+- Sticky header, and the navy footer with the teal top border.
+- Content pages: full-width grey page header, "Step x of 5" labels, accordions for the five PH groups and medicine types, numbered timeline for diagnosis, and question lists as tick-box cards.
+- Wide screens: page width up to 1440px; sidebar with "On this page" links and the next step.
+- Find a specialist: states laid out in columns on wide screens.
+- Phone: shorter help banner wording so it takes less space.
+
 ## v2.0 — Back to basics (25 October 2026)
 
 The site has been stripped back to a small, honest core and rebuilt. Everything removed is parked in the backlog and comes back only once its content, review and owner are in place.

@@ -1,86 +1,154 @@
 ---
 import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
 import { url } from '../site';
 
-const steps = [
+const cards = [
   {
-    step: 'Start here',
+    step: 'Step 1',
     title: 'What is PH?',
-    text: 'What pulmonary hypertension is, how it affects your body, and the five types.',
+    text: 'What pulmonary hypertension is, how it affects your body, and the five groups.',
     href: '/what-is-ph/',
+    color: 'top-coral',
   },
   {
     step: 'Step 2',
     title: 'Diagnosis and tests',
-    text: 'The usual path from GP to diagnosis, and the tests you might have along the way.',
+    text: 'The usual path from your GP to a diagnosis, and the tests you might have.',
     href: '/diagnosis-and-tests/',
+    color: 'top-primary',
   },
   {
     step: 'Step 3',
     title: 'Questions for your doctor',
     text: 'A printable list to take to your next appointment.',
     href: '/questions-for-your-doctor/',
+    color: 'top-secondary',
   },
   {
     step: 'Step 4',
     title: 'Treatments',
     text: 'The main types of PH medicines, supportive treatments and surgery.',
     href: '/treatments/',
+    color: 'top-accent',
   },
   {
     step: 'Step 5',
     title: 'Find a specialist',
     text: 'Hospitals in Australia and New Zealand with PH services.',
     href: '/find-a-specialist/',
+    color: 'top-primary',
+  },
+  {
+    step: 'About',
+    title: 'About PH Navigator',
+    text: 'What this site is, where it’s up to, and how its information will be checked.',
+    href: '/about/',
+    color: 'top-muted',
   },
 ];
 ---
 
 <Base>
-  <section class="hero">
-    <h1>Navigating life with pulmonary hypertension, <em>together</em></h1>
-    <p class="lede">
-      Plain-language information for people with pulmonary hypertension (PH) and their families in Australia and New
-      Zealand.
-    </p>
+  <section class="home-hero">
+    <div class="blob blob-1" aria-hidden="true"></div>
+    <div class="blob blob-2" aria-hidden="true"></div>
+    <div class="container">
+      <div>
+        <h1 class="rise">Navigating life with pulmonary hypertension <em>— together.</em></h1>
+        <p class="lede rise rise-2">
+          A guide for people living with a rare lung condition in Australia and New Zealand, and the people who care
+          for them.
+        </p>
+        <div class="hero-actions rise rise-3">
+          <a class="btn btn-coral" href={url('/what-is-ph/')}>I’m newly diagnosed</a>
+          <a class="btn btn-outline" href={url('/find-a-specialist/')}>Find a specialist</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="disc"><img src={url('/logo-mark-large.png')} alt="" width="440" height="411" /></div>
+      </div>
+    </div>
   </section>
 
-  <div class="review-box" role="note">
-    <p>
-      <strong>Early preview.</strong> The health information here has not yet been clinically reviewed. Always check
-      with your doctor or PH specialist team. <a href={url('/about/')}>About this site</a>
-    </p>
+  <div class="preview-band" role="note">
+    <div class="container">
+      <span><strong>Early preview.</strong> Health information on this site hasn’t been clinically reviewed yet. Always check with your doctor or PH team.</span>
+      <a href={url('/about/')}>About this site</a>
+    </div>
   </div>
 
-  <section aria-labelledby="journey-heading">
-    <h2 id="journey-heading">Recently diagnosed? Start here</h2>
-    <ul class="path-grid">
-      {steps.map((s) => (
-        <li>
-          <a class="path-card" href={url(s.href)}>
-            <span class="step">{s.step}</span>
-            <h3>{s.title}</h3>
-            <p>{s.text}</p>
-          </a>
-        </li>
-      ))}
-    </ul>
+  <section class="section section-white" aria-labelledby="what-heading">
+    <div class="container split">
+      <div>
+        <h2 id="what-heading">What is pulmonary hypertension?</h2>
+        <div class="prose">
+          <p>
+            Pulmonary hypertension (PH) is high blood pressure in the lungs. It is a rare, complex condition that
+            affects the arteries in the lungs and the right side of the heart.
+          </p>
+          <p>
+            Unlike regular high blood pressure, it can’t be measured with a cuff on your arm. Because the right side of
+            the heart has to work harder to pump blood through narrowed lung arteries, people with PH often have
+            breathlessness, tiredness and chest pain.
+          </p>
+          <p>
+            PH is serious and there is currently no cure for most types. Treatments have improved a lot, and with
+            specialist care many people live well for years after diagnosis.
+          </p>
+        </div>
+        <p>
+          <a class="text-link" href={url('/what-is-ph/')}>Learn more about PH <Icon name="arrow-right" size={18} /></a>
+        </p>
+      </div>
+
+      <div class="intro-card">
+        <h3>New to PH Navigator?</h3>
+        <ul class="intro-list">
+          <li>
+            <span class="icon-wrap"><Icon name="activity" size={22} /></span>
+            <div>
+              <h4>Understand the condition</h4>
+              <p>Plain-language explanations of PH and its types.</p>
+            </div>
+          </li>
+          <li>
+            <span class="icon-wrap"><Icon name="clipboard" size={22} /></span>
+            <div>
+              <h4>Prepare for appointments</h4>
+              <p>A printable question list and a guide to the tests.</p>
+            </div>
+          </li>
+          <li>
+            <span class="icon-wrap"><Icon name="map-pin" size={22} /></span>
+            <div>
+              <h4>Find specialist care</h4>
+              <p>Hospitals with PH services across Australia and New Zealand.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </section>
 
-  <section class="prose" aria-labelledby="what-heading">
-    <h2 id="what-heading">PH in brief</h2>
-    <p>
-      Pulmonary hypertension is high blood pressure in the lungs. It is a rare, complex condition that affects the
-      arteries in the lungs and the right side of the heart.
-    </p>
-    <p>
-      Unlike regular high blood pressure, it can't be measured with a cuff on your arm. Because the right side of the
-      heart has to work harder to pump blood through narrowed lung arteries, people with PH often have breathlessness,
-      tiredness and chest pain.
-    </p>
-    <p>
-      PH is a serious condition and there is currently no cure for most types. Treatments have improved a lot, and
-      with specialist care many people live well for years after diagnosis.
-    </p>
+  <section class="section section-tint" aria-labelledby="start-heading">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="start-heading">Recently diagnosed? Start here</h2>
+        <p>Five short steps, in the order most people need them.</p>
+      </div>
+      <ul class="card-grid">
+        {cards.map((c) => (
+          <li>
+            <a class:list={['card', c.color]} href={url(c.href)}>
+              <span class="step">{c.step}</span>
+              <h3>{c.title}</h3>
+              <p>{c.text}</p>
+              <span class="text-link">Read more <Icon name="arrow-right" size={18} /></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   </section>
 </Base>

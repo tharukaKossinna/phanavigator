@@ -1,5 +1,6 @@
 ---
 layout: ../layouts/ContentPage.astro
+eyebrow: Step 4 of 5
 title: Treatments
 description: An overview of the targeted medicines, supportive treatments and surgical options used to manage pulmonary hypertension.
 lastUpdated: 2026-10-25
@@ -20,33 +21,45 @@ Treatment for PH is tailored to each person, based on their PH group, overall he
 
 Targeted medicines are mainly used for Group 1 PAH. They work by relaxing the blood vessels in the lungs, slowing the changes that narrow the arteries, and helping the heart pump more effectively. Your specialist may prescribe one or a combination of these.
 
-### Endothelin receptor antagonists (ERAs)
+<details class="accordion">
+<summary>Endothelin receptor antagonists (ERAs)</summary>
 
 People with PAH often have too much endothelin, a substance that makes blood vessels narrow. ERAs block its effect, helping the vessels relax.
 
 - **Examples:** bosentan, macitentan, ambrisentan
 - **How taken:** tablets
 
-### Phosphodiesterase-5 (PDE-5) inhibitors
+</details>
+
+<details class="accordion">
+<summary>Phosphodiesterase-5 (PDE-5) inhibitors</summary>
 
 These increase the effect of nitric oxide, a natural substance that helps relax and widen blood vessels.
 
 - **Examples:** sildenafil, tadalafil
 - **How taken:** tablets
 
-### Soluble guanylate cyclase (sGC) stimulators
+</details>
+
+<details class="accordion">
+<summary>Soluble guanylate cyclase (sGC) stimulators</summary>
 
 These also act on the nitric oxide pathway to relax blood vessels. They are also used for people with CTEPH (Group 4) who can't have surgery.
 
 - **Example:** riociguat
 - **How taken:** tablets
 
-### Prostacyclin medicines
+</details>
+
+<details class="accordion">
+<summary>Prostacyclin medicines</summary>
 
 Prostacyclin is a natural substance that keeps blood vessels open. People with PAH often don't make enough of it. These medicines replace it or act like it.
 
 - **Examples:** epoprostenol, iloprost, treprostinil, selexipag
 - **How taken:** depending on the medicine, by continuous infusion into a vein or under the skin, inhaled through a nebuliser, or as tablets
+
+</details>
 
 ## Supportive treatments
 
