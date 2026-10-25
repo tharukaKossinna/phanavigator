@@ -5,10 +5,14 @@ export type LogoSize = "sm" | "md" | "lg";
 
 const heights: Record<LogoSize, number> = { sm: 48, md: 64, lg: 80 };
 
+// BASE_URL keeps logos working when the site is served from a subfolder
+// (e.g. GitHub Pages at /phanavigator/) as well as from the root.
+const base = import.meta.env.BASE_URL;
+
 const logoSrc: Record<LogoVariant, string> = {
-  primary: "/logo-primary.svg",
-  white: "/logo-primary.svg",
-  mark: "/logo-mark.svg",
+  primary: `${base}logo-primary.svg`,
+  white: `${base}logo-primary.svg`,
+  mark: `${base}logo-mark.svg`,
 };
 
 interface LogoProps {

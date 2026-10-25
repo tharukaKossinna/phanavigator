@@ -47,6 +47,7 @@ Versions below were assigned retrospectively from the commit history; the repo h
 - Moved into its own repository (`tharukaKossinna/phanavigator`) with full history carried over.
 - Fixed the CI build, which had been failing: corrected a type error in the mockup sandbox config and added the `BASE_PATH` and `PORT` settings the build needs.
 - Added this README.
+- Website now builds and publishes to GitHub Pages automatically on every push.
 
 ### v1.2 — 23 July 2026
 - Updated the Mailchimp audience configuration for newsletter signups.
@@ -103,4 +104,6 @@ The built site is output to `artifacts/ph-navigator/dist/public`.
 
 ## Hosting
 
-The site is set up to deploy on Cloudflare. Build settings and environment variables are documented in [`replit.md`](replit.md). Newsletter signup needs `MAILCHIMP_API_KEY` (secret) and `MAILCHIMP_LIST_ID` set in Cloudflare.
+**GitHub Pages (current):** every push to `main` builds the site and publishes it via `.github/workflows/pages.yml`. The newsletter signup doesn't work on GitHub Pages, as it needs a server function.
+
+**Cloudflare (planned):** the site is also set up to deploy on Cloudflare, which supports the newsletter. Build settings and environment variables are documented in [`replit.md`](replit.md). Newsletter signup needs `MAILCHIMP_API_KEY` (secret) and `MAILCHIMP_LIST_ID` set in Cloudflare.
