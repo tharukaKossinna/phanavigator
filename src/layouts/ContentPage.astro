@@ -1,0 +1,121 @@
+---
+/**
+ * Layout for content pages written in Markdown (src/pages/*.md).
+ *
+ * Frontmatter fields:
+ *   title          Page heading (required)
+ *   description    One-line summary shown under the heading and in search results
+ *   lastUpdated    Date the content last changed, e.g. 2026-10-25
+ *   reviewStatus   "not-reviewed" or "reviewed". Set on every page with health
+ *                  information; it controls the review box at the top.
+ *   reviewedBy     Who did the clinical review (when reviewed)
+ *   reviewedOn     Date of the clinical review (when reviewed)
+ *   sources        List of { title, url } the content is based on
+ *   next           Optional { label, href } link to the next page in the journey
+ *   printable      true adds a print button and note lines when printed
+ */
+import Base from './Base.astro';
+import { url } from '../site';
+
+interface Source {
+  title: string;
+  url?: string;
+}
+
+interface Frontmatter {
+  title: string;
+  description?: string;
+  lastUpdated?: string;
+  reviewStatus?: 'not-reviewed' | 'reviewed';
+  reviewedBy?: string;
+  reviewedOn?: string;
+  sources?: Source[];
+  next?: { label: string; href: string };
+  printable?: boolean;
+}
+
+const { frontmatter } = Astro.props as { frontmatter: Frontmatter };
+const {
+  title,
+  description,
+  lastUpdated,
+  reviewStatus,
+  reviewedBy,
+  reviewedOn,
+  sources = [],
+  next,
+  printable = false,
+} = frontmatter;
+
+const formatDate = (value?: string) =>
+  value
+    ? new Date(value).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
+    : undefined;
+
+const isHealthPage = reviewStatus !== undefined;
+const isReviewed = reviewStatus === 'reviewed';
+---
+
+<Base title={title} description={description}>
+  <article class:list={[{ printable }]}>
+    <h1>{title}</h1>
+    {description && <p class="lede">{description}</p>}
+
+    {isHealthPage && (
+      <div class:list={['review-box', { 'is-reviewed': isReviewed }]} role="note">
+        {isReviewed ? (
+          <p>
+            <strong>Clinically reviewed</strong>
+            {reviewedBy && <> by {reviewedBy}</>}
+            {reviewedOn && <> on {formatDate(reviewedOn)}</>}.
+          </p>
+        ) : (
+          <p>
+            <strong>Not yet clinically reviewed.</strong> This page is a draft. Always check with your doctor or PH
+            specialist team before acting on anything here.
+          </p>
+        )}
+      </div>
+    )}
+
+    {printable && (
+      <p class="no-print">
+        <button class="button" type="button" onclick="window.print()">Print this list</button>
+      </p>
+    )}
+
+    <div class="prose">
+      <slot />
+    </div>
+
+    {printable && (
+      <div class="notes-lines" aria-hidden="true">
+        <h3>Your own questions and notes</h3>
+        <div></div><div></div><div></div><div></div><div></div><div></div>
+      </div>
+    )}
+
+    {isHealthPage && (
+      <section class="sources" aria-labelledby="sources-heading">
+        <h2 id="sources-heading">Sources</h2>
+        {sources.length > 0 ? (
+          <ul>
+            {sources.map((s) => (
+              <li>{s.url ? <a href={s.url} rel="noopener">{s.title}</a> : s.title}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>Sources for this page are being added as part of clinical review.</p>
+        )}
+      </section>
+    )}
+
+    {next && (
+      <a class="next-link no-print" href={url(next.href)}>
+        Next: {next.label} <span aria-hidden="true">→</span>
+      </a>
+    )}
+
+    {lastUpdated && <p class="page-meta">Last updated {formatDate(lastUpdated)}</p>}
+  </article>
+</Base>

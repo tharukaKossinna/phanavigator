@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import { url } from '../site';
+---
+
+<Base title="Page not found">
+  <h1>Page not found</h1>
+  <p class="lede">
+    We couldn't find that page. It may have moved while the site is being rebuilt.
+  </p>
+  <p><a class="next-link" href={url('/')}>Go to the home page</a></p>
+</Base>

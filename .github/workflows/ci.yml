@@ -1,5 +1,7 @@
 name: CI
 
+# Checks that the site type-checks and builds on every push and pull request.
+
 on:
   push:
   pull_request:
@@ -7,17 +9,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      BASE_PATH: /
-      PORT: 3000
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10.26.1
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run build:ci
+          cache: npm
+      - run: npm ci
+      - run: npm run build

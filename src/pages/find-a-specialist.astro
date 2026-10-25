@@ -1,0 +1,86 @@
+---
+// The centre list lives in src/data/centres.json so it can be edited without touching this page.
+import Base from '../layouts/Base.astro';
+import centres from '../data/centres.json';
+
+interface Centre {
+  country: 'AU' | 'NZ';
+  state: string;
+  name: string;
+  city: string;
+  type: string;
+  website?: string;
+}
+
+const list = centres as Centre[];
+
+const stateOrder = ['NSW', 'VIC', 'QLD', 'SA', 'WA', 'ACT', 'TAS', 'NT'];
+const stateNames: Record<string, string> = {
+  NSW: 'New South Wales',
+  VIC: 'Victoria',
+  QLD: 'Queensland',
+  SA: 'South Australia',
+  WA: 'Western Australia',
+  ACT: 'Australian Capital Territory',
+  TAS: 'Tasmania',
+  NT: 'Northern Territory',
+};
+
+const groups = [
+  ...stateOrder
+    .map((code) => ({ heading: stateNames[code], items: list.filter((c) => c.country === 'AU' && c.state === code) }))
+    .filter((g) => g.items.length > 0),
+  { heading: 'New Zealand', items: list.filter((c) => c.country === 'NZ') },
+];
+---
+
+<Base
+  title="Find a specialist"
+  description="Hospitals in Australia and New Zealand with pulmonary hypertension services."
+>
+  <h1>Find a specialist</h1>
+  <p class="lede">Hospitals in Australia and New Zealand with pulmonary hypertension (PH) services.</p>
+
+  <div class="review-box" role="note">
+    <p>
+      <strong>This list is still being checked.</strong> Confirm with your GP or specialist which centre is right for
+      you before you book or travel. Direct contact details for each PH clinic will be added once confirmed.
+    </p>
+  </div>
+
+  <p class="prose">
+    You usually need a referral from your GP or another doctor to see a PH specialist. Your GP can help you choose a
+    centre and arrange the referral.
+  </p>
+
+  {groups.map((group) => (
+    <section class="centre-group">
+      <h2>{group.heading}</h2>
+      <ul class="centre-list">
+        {group.items.map((c) => (
+          <li class="centre">
+            <h3>{c.name}</h3>
+            <p>{c.city}</p>
+            <p><span class="tag">{c.type}</span></p>
+            {c.website && (
+              <p><a href={c.website} rel="noopener">Hospital website<span class="visually-hidden"> for {c.name}</span></a></p>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+
+  <p class="page-meta">Last updated 25 October 2026</p>
+</Base>
+
+<style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+</style>

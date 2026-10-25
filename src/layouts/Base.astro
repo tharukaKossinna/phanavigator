@@ -1,0 +1,116 @@
+---
+import '@fontsource-variable/nunito';
+import '@fontsource/playfair-display/600.css';
+import '@fontsource/playfair-display/700.css';
+import '../styles/global.css';
+import { SITE_NAME, SITE_DESCRIPTION, NAV, HELP_LINES, url, tel } from '../site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = SITE_DESCRIPTION } = Astro.props;
+const pageTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} — living with pulmonary hypertension`;
+
+const currentPath = Astro.url.pathname.replace(/\/?$/, '/');
+const isCurrent = (href: string) => currentPath === url(href);
+
+const ogImage = Astro.site ? new URL(url('/og-image.jpg'), Astro.site).href : url('/og-image.jpg');
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+---
+
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" type="image/png" href={url('/favicon-32.png')} />
+    <link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={title ?? SITE_NAME} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <aside class="help-strip" aria-label="Urgent help">
+      <div class="container">
+        <span>
+          <strong>Emergency:</strong>{' '}
+          {HELP_LINES.emergency.map((line, i) => (
+            <>
+              {i > 0 && ' · '}
+              <a href={tel(line.number)}>{line.number}</a> ({line.label})
+            </>
+          ))}
+        </span>
+        <span>
+          <strong>Support:</strong>{' '}
+          {HELP_LINES.support.map((line, i) => (
+            <>
+              {i > 0 && ' · '}
+              {line.label} <a href={tel(line.number)}>{line.number}</a>
+            </>
+          ))}
+        </span>
+      </div>
+    </aside>
+
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href={url('/')}>
+          <img src={url('/logo-mark.png')} alt="" width="40" height="40" />
+          <span>PH <span>Navigator</span></span>
+        </a>
+
+        <nav class="nav-desktop" aria-label="Main">
+          <ul class="nav-list">
+            {NAV.map((item) => (
+              <li><a href={url(item.href)} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+
+        <details class="nav-mobile">
+          <summary>Menu</summary>
+          <nav aria-label="Main (mobile)">
+            <ul class="nav-list">
+              {NAV.map((item) => (
+                <li><a href={url(item.href)} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a></li>
+              ))}
+            </ul>
+          </nav>
+        </details>
+      </div>
+    </header>
+
+    <main id="main">
+      <div class="container">
+        <slot />
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <ul class="footer-links">
+          <li><a href={url('/about/')}>About</a></li>
+          <li><a href={url('/privacy-and-disclaimer/')}>Privacy &amp; disclaimer</a></li>
+        </ul>
+        <p>
+          PH Navigator provides general information only. It is not medical advice and does not replace advice from
+          your doctor or PH specialist team. Never start, stop or change a medicine without talking to them first.
+        </p>
+        <p>
+          This site is an early preview. Health information on it has not yet been clinically reviewed.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
