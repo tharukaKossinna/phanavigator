@@ -67,7 +67,7 @@ export default defineConfig(async ({ command }) => {
     server: {
       port,
       host: "0.0.0.0",
-      allowedHosts: true,
+      allowedHosts: true as const,
       fs: {
         strict: true,
       },
@@ -75,7 +75,7 @@ export default defineConfig(async ({ command }) => {
     preview: {
       port,
       host: "0.0.0.0",
-      allowedHosts: true,
+      allowedHosts: true as const,
     },
   };
 });
