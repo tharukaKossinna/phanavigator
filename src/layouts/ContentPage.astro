@@ -5,6 +5,7 @@
  * Frontmatter fields:
  *   title          Page heading (required)
  *   description    One-line summary shown under the heading and in search results
+ *   eyebrow        Optional small label above the heading, e.g. "Step 1 of 5"
  *   lastUpdated    Date the content last changed, e.g. 2026-10-25
  *   reviewStatus   "not-reviewed" or "reviewed". Set on every page with health
  *                  information; it controls the review box at the top.
@@ -13,8 +14,12 @@
  *   sources        List of { title, url } the content is based on
  *   next           Optional { label, href } link to the next page in the journey
  *   printable      true adds a print button and note lines when printed
+ *
+ * On wide screens the page shows a sidebar with "On this page" links (built
+ * from the page's ## headings) and the next step.
  */
 import Base from './Base.astro';
+import Icon from '../components/Icon.astro';
 import { url } from '../site';
 
 interface Source {
@@ -25,6 +30,7 @@ interface Source {
 interface Frontmatter {
   title: string;
   description?: string;
+  eyebrow?: string;
   lastUpdated?: string;
   reviewStatus?: 'not-reviewed' | 'reviewed';
   reviewedBy?: string;
@@ -34,10 +40,17 @@ interface Frontmatter {
   printable?: boolean;
 }
 
-const { frontmatter } = Astro.props as { frontmatter: Frontmatter };
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+const { frontmatter, headings = [] } = Astro.props as { frontmatter: Frontmatter; headings?: Heading[] };
 const {
   title,
   description,
+  eyebrow,
   lastUpdated,
   reviewStatus,
   reviewedBy,
@@ -54,68 +67,125 @@ const formatDate = (value?: string) =>
 
 const isHealthPage = reviewStatus !== undefined;
 const isReviewed = reviewStatus === 'reviewed';
+
+const toc = [
+  ...headings.filter((h) => h.depth === 2).map((h) => ({ slug: h.slug, text: h.text })),
+  ...(isHealthPage ? [{ slug: 'sources-heading', text: 'Sources' }] : []),
+];
+const hasAside = toc.length >= 2 || Boolean(next) || printable;
 ---
 
 <Base title={title} description={description}>
-  <article class:list={[{ printable }]}>
-    <h1>{title}</h1>
-    {description && <p class="lede">{description}</p>}
-
-    {isHealthPage && (
-      <div class:list={['review-box', { 'is-reviewed': isReviewed }]} role="note">
-        {isReviewed ? (
-          <p>
-            <strong>Clinically reviewed</strong>
-            {reviewedBy && <> by {reviewedBy}</>}
-            {reviewedOn && <> on {formatDate(reviewedOn)}</>}.
-          </p>
-        ) : (
-          <p>
-            <strong>Not yet clinically reviewed.</strong> This page is a draft. Always check with your doctor or PH
-            specialist team before acting on anything here.
-          </p>
-        )}
-      </div>
-    )}
-
-    {printable && (
-      <p class="no-print">
-        <button class="button" type="button" onclick="window.print()">Print this list</button>
-      </p>
-    )}
-
-    <div class="prose">
-      <slot />
+  <header class="page-hero">
+    <div class="container">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h1>{title}</h1>
+      {description && <p class="lede">{description}</p>}
     </div>
+  </header>
 
-    {printable && (
-      <div class="notes-lines" aria-hidden="true">
-        <h3>Your own questions and notes</h3>
-        <div></div><div></div><div></div><div></div><div></div><div></div>
+  <div class:list={['container', 'page-body', { 'has-aside': hasAside }]}>
+    <article class:list={['page-main', { printable }]}>
+      {isHealthPage && (
+        <div class:list={['review-box', { 'is-reviewed': isReviewed }]} role="note">
+          <Icon name="info" size={20} />
+          {isReviewed ? (
+            <p>
+              <strong>Clinically reviewed</strong>
+              {reviewedBy && <> by {reviewedBy}</>}
+              {reviewedOn && <> on {formatDate(reviewedOn)}</>}.
+            </p>
+          ) : (
+            <p>
+              <strong>Not yet clinically reviewed.</strong> This page is a draft. Always check with your doctor or PH
+              specialist team before acting on anything here.
+            </p>
+          )}
+        </div>
+      )}
+
+      {printable && (
+        <p class="print-row no-print">
+          <button class="btn btn-outline" type="button" onclick="window.print()">
+            <Icon name="printer" size={18} /> Print this list
+          </button>
+        </p>
+      )}
+
+      <div class="prose">
+        <slot />
       </div>
-    )}
 
-    {isHealthPage && (
-      <section class="sources" aria-labelledby="sources-heading">
-        <h2 id="sources-heading">Sources</h2>
-        {sources.length > 0 ? (
-          <ul>
-            {sources.map((s) => (
-              <li>{s.url ? <a href={s.url} rel="noopener">{s.title}</a> : s.title}</li>
-            ))}
-          </ul>
-        ) : (
-          <p>Sources for this page are being added as part of clinical review.</p>
-        )}
-      </section>
-    )}
+      {printable && (
+        <div class="notes-lines" aria-hidden="true">
+          <h3>Your own questions and notes</h3>
+          <div></div><div></div><div></div><div></div><div></div><div></div>
+        </div>
+      )}
 
-    {next && (
-      <a class="next-link no-print" href={url(next.href)}>
-        Next: {next.label} <span aria-hidden="true">→</span>
-      </a>
-    )}
+      {isHealthPage && (
+        <section class="sources" aria-labelledby="sources-heading">
+          <h2 id="sources-heading">Sources</h2>
+          {sources.length > 0 ? (
+            <ul>
+              {sources.map((s) => (
+                <li>{s.url ? <a href={s.url} rel="noopener">{s.title}</a> : s.title}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>Sources for this page are being added as part of clinical review.</p>
+          )}
+        </section>
+      )}
 
-    {lastUpdated && <p class="page-meta">Last updated {formatDate(lastUpdated)}</p>}
-  </article>
+      {next && (
+        <div class="next-step">
+          <div>
+            <span class="label">Next step</span>
+            <span class="title">{next.label}</span>
+          </div>
+          <a class="btn btn-primary" href={url(next.href)}>
+            Continue <Icon name="arrow-right" size={18} />
+          </a>
+        </div>
+      )}
+
+      {lastUpdated && <p class="page-meta">Last updated {formatDate(lastUpdated)}</p>}
+    </article>
+
+    {hasAside && (
+      <aside class="page-aside" aria-label="Page tools">
+        <div class="aside-inner">
+          {toc.length >= 2 && (
+            <nav class="aside-card" aria-labelledby="toc-heading">
+              <h2 id="toc-heading">On this page</h2>
+              <ul class="toc">
+                {toc.map((h) => (
+                  <li><a href={`#${h.slug}`}>{h.text}</a></li>
+                ))}
+              </ul>
+            </nav>
+          )}
+          {printable && (
+            <div class="aside-card">
+              <h2>Take it with you</h2>
+              <p>Print this list, tick the questions you want to ask, and add your own.</p>
+              <button class="btn btn-outline" type="button" onclick="window.print()">
+                <Icon name="printer" size={18} /> Print
+              </button>
+            </div>
+          )}
+          {next && (
+            <div class="aside-card">
+              <h2>Next step</h2>
+              <p><strong>{next.label}</strong></p>
+              <a class="btn btn-primary" href={url(next.href)}>
+                Continue <Icon name="arrow-right" size={18} />
+              </a>
+            </div>
+          )}
+        </div>
+      </aside>
+    )}
+  </div>
 </Base>

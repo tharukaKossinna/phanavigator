@@ -1,5 +1,6 @@
 ---
 layout: ../layouts/ContentPage.astro
+eyebrow: Step 3 of 5
 title: Questions for your doctor
 description: Specialist appointments can be overwhelming. Take this list with you so you don't forget anything important. Tick the questions you want to ask.
 lastUpdated: 2026-10-25

@@ -2,7 +2,9 @@
 import '@fontsource-variable/nunito';
 import '@fontsource/playfair-display/600.css';
 import '@fontsource/playfair-display/700.css';
+import '@fontsource/playfair-display/700-italic.css';
 import '../styles/global.css';
+import Icon from '../components/Icon.astro';
 import { SITE_NAME, SITE_DESCRIPTION, NAV, HELP_LINES, url, tel } from '../site';
 
 interface Props {
@@ -18,6 +20,7 @@ const isCurrent = (href: string) => currentPath === url(href);
 
 const ogImage = Astro.site ? new URL(url('/og-image.jpg'), Astro.site).href : url('/og-image.jpg');
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const year = new Date().getFullYear();
 ---
 
 <!doctype html>
@@ -30,6 +33,7 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : un
     {canonical && <link rel="canonical" href={canonical} />}
     <link rel="icon" type="image/png" href={url('/favicon-32.png')} />
     <link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />
+    <meta name="theme-color" content="#1b5faf" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:title" content={title ?? SITE_NAME} />
@@ -40,19 +44,19 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : un
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
 
-    <aside class="help-strip" aria-label="Urgent help">
+    <aside class="help-banner" aria-label="Urgent help">
       <div class="container">
         <span>
-          <strong>Emergency:</strong>{' '}
+          <span class="label">Emergency:</span>{' '}
           {HELP_LINES.emergency.map((line, i) => (
             <>
               {i > 0 && ' · '}
-              <a href={tel(line.number)}>{line.number}</a> ({line.label})
+              <span class="wide-only">call </span><a href={tel(line.number)}>{line.number}</a> ({line.label})
             </>
           ))}
         </span>
         <span>
-          <strong>Support:</strong>{' '}
+          <span class="label"><span class="wide-only">Emotional support:</span><span class="narrow-only">Support:</span></span>{' '}
           {HELP_LINES.support.map((line, i) => (
             <>
               {i > 0 && ' · '}
@@ -65,9 +69,9 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : un
 
     <header class="site-header">
       <div class="container">
-        <a class="brand" href={url('/')}>
-          <img src={url('/logo-mark.png')} alt="" width="40" height="40" />
-          <span>PH <span>Navigator</span></span>
+        <a class="brand" href={url('/')} aria-label="PH Navigator home">
+          <img src={url('/logo-mark-sm.png')} alt="" width="46" height="43" />
+          <span class="brand-text" aria-hidden="true"><span class="ph">PH</span><span class="nav">Navigator</span></span>
         </a>
 
         <nav class="nav-desktop" aria-label="Main">
@@ -79,8 +83,8 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : un
         </nav>
 
         <details class="nav-mobile">
-          <summary>Menu</summary>
-          <nav aria-label="Main (mobile)">
+          <summary><Icon name="menu" size={18} /> Menu</summary>
+          <nav class="nav-panel" aria-label="Main (mobile)">
             <ul class="nav-list">
               {NAV.map((item) => (
                 <li><a href={url(item.href)} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a></li>
@@ -92,24 +96,61 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : un
     </header>
 
     <main id="main">
-      <div class="container">
-        <slot />
-      </div>
+      <slot />
     </main>
 
     <footer class="site-footer">
       <div class="container">
-        <ul class="footer-links">
-          <li><a href={url('/about/')}>About</a></li>
-          <li><a href={url('/privacy-and-disclaimer/')}>Privacy &amp; disclaimer</a></li>
-        </ul>
-        <p>
-          PH Navigator provides general information only. It is not medical advice and does not replace advice from
-          your doctor or PH specialist team. Never start, stop or change a medicine without talking to them first.
-        </p>
-        <p>
-          This site is an early preview. Health information on it has not yet been clinically reviewed.
-        </p>
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a class="logo-tile brand" href={url('/')} aria-label="PH Navigator home">
+              <img src={url('/logo-mark-sm.png')} alt="" width="46" height="43" />
+              <span class="brand-text" aria-hidden="true"><span class="ph">PH</span><span class="nav">Navigator</span></span>
+            </a>
+            <p>
+              Navigating life with pulmonary hypertension, together. Plain-language information for people with PH and
+              their families in Australia and New Zealand.
+            </p>
+          </div>
+
+          <nav aria-labelledby="footer-start">
+            <h2 id="footer-start">Start here</h2>
+            <ul>
+              {NAV.filter((item) => item.href !== '/about/').map((item) => (
+                <li><a href={url(item.href)}>{item.label}</a></li>
+              ))}
+            </ul>
+          </nav>
+
+          <nav aria-labelledby="footer-about">
+            <h2 id="footer-about">About</h2>
+            <ul>
+              <li><a href={url('/about/')}>About PH Navigator</a></li>
+              <li><a href={url('/privacy-and-disclaimer/')}>Privacy and disclaimer</a></li>
+            </ul>
+          </nav>
+
+          <div>
+            <h2>Urgent help</h2>
+            <ul>
+              {HELP_LINES.emergency.map((line) => (
+                <li>Emergency ({line.label}): <a href={tel(line.number)}><strong>{line.number}</strong></a></li>
+              ))}
+              {HELP_LINES.support.map((line) => (
+                <li>{line.label}: <a href={tel(line.number)}><strong>{line.number}</strong></a></li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>
+            PH Navigator provides general information only. It is not medical advice and does not replace advice from
+            your doctor or PH specialist team. Never start, stop or change a medicine without talking to them first.
+          </p>
+          <p>Early preview: health information on this site has not yet been clinically reviewed.</p>
+          <p>© {year} PH Navigator</p>
+        </div>
       </div>
     </footer>
   </body>

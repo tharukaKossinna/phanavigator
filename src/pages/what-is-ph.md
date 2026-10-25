@@ -1,5 +1,6 @@
 ---
 layout: ../layouts/ContentPage.astro
+eyebrow: Step 1 of 5
 title: What is pulmonary hypertension?
 description: An overview of pulmonary hypertension (PH), how it affects your body, and the different types of the condition.
 lastUpdated: 2026-10-25
@@ -37,7 +38,8 @@ In the early stages, symptoms of PH may be mild or hard to notice. As the condit
 
 PH is grouped into five types based on the underlying cause. These are often called the WHO groups. Knowing your group matters, because it guides your treatment plan.
 
-### Group 1: Pulmonary arterial hypertension (PAH)
+<details class="accordion">
+<summary>Group 1: Pulmonary arterial hypertension (PAH)</summary>
 
 PAH occurs when the arteries in the lungs become narrowed, thickened or stiff. It can be:
 
@@ -46,18 +48,32 @@ PAH occurs when the arteries in the lungs become narrowed, thickened or stiff. I
 - **Associated:** linked to other conditions such as connective tissue diseases (for example scleroderma), congenital heart disease, liver disease or HIV infection.
 - **Drug- or toxin-induced:** associated with certain weight-loss medicines or illegal drug use.
 
-### Group 2: PH due to left heart disease
+</details>
+
+<details class="accordion">
+<summary>Group 2: PH due to left heart disease</summary>
 
 This is the most common form of PH overall. It happens when the left side of the heart is not pumping or filling efficiently, for example because of heart valve disease or left ventricular failure. Pressure builds up in the left heart and backs up into the lungs.
 
-### Group 3: PH due to lung disease or low oxygen
+</details>
+
+<details class="accordion">
+<summary>Group 3: PH due to lung disease or low oxygen</summary>
 
 This group is caused by chronic lung conditions or long periods of low oxygen levels (hypoxia). Common causes include chronic obstructive pulmonary disease (COPD), pulmonary fibrosis, interstitial lung disease and severe sleep apnoea.
 
-### Group 4: Chronic thromboembolic pulmonary hypertension (CTEPH)
+</details>
+
+<details class="accordion">
+<summary>Group 4: Chronic thromboembolic pulmonary hypertension (CTEPH)</summary>
 
 CTEPH occurs when old blood clots (pulmonary emboli) block or narrow the arteries in the lungs over a long period. Unlike other forms of PH, CTEPH can sometimes be cured or significantly improved with a specialised surgery called pulmonary endarterectomy (PEA), or a procedure called balloon pulmonary angioplasty (BPA).
 
-### Group 5: PH with unclear or multiple causes
+</details>
+
+<details class="accordion">
+<summary>Group 5: PH with unclear or multiple causes</summary>
 
 This group includes conditions that don't fit the other four groups, or where several factors contribute. Examples include certain blood disorders, sarcoidosis and some metabolic disorders.
+
+</details>

@@ -1,5 +1,6 @@
 ---
 layout: ../layouts/ContentPage.astro
+eyebrow: Step 2 of 5
 title: Diagnosis and tests
 description: Getting a confirmed diagnosis of pulmonary hypertension can take time. Knowing what to expect can help you feel more prepared.
 lastUpdated: 2026-10-25
@@ -20,6 +21,8 @@ PH symptoms can look like many common conditions, such as asthma or simply being
 
 ## Step by step
 
+<div class="timeline">
+
 1. **GP referral.** Your journey usually begins with your general practitioner (GP), often because of breathlessness or unexplained tiredness. They will do initial checks and, if they suspect a heart or lung problem, refer you to a specialist such as a cardiologist or respiratory physician.
 
 2. **First specialist appointment.** The specialist will review your medical history, examine you, and order tests to rule out more common conditions such as asthma or heart failure.
@@ -29,3 +32,5 @@ PH symptoms can look like many common conditions, such as asthma or simply being
 4. **Right heart catheterisation (RHC).** If your echocardiogram suggests PH, you will need a right heart catheterisation. This is the test needed to confirm a PH diagnosis. A thin tube is passed through a vein into the right side of your heart to measure the pressures directly.
 
 5. **Diagnosis and treatment plan.** Once PH is confirmed and your group (1 to 5) is known, your specialist team will develop a treatment plan for you. This may include PH medicines, oxygen therapy, or in some cases referral for surgery.
+
+</div>
